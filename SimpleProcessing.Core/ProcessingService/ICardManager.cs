@@ -10,6 +10,6 @@ namespace SimpleProcessing.Core.ProcessingService
 	public interface ICardManager
 	{
 		CreditCard GetCardByStandartInfo(CreditCardStandartInfo ccInfo);
-		string CardOperation(string cardId, decimal amount);
+		string CardOperation(string cardId, decimal amount, bool isRefund = false);
 	}
 }
