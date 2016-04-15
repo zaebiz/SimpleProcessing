@@ -11,7 +11,7 @@ namespace SimpleProcessing.Models.Cards
 	public class CreditCardStandartInfo
 	{
 		[Required]
-		[RegularExpression("^[0-9]{16}$")]
+		[RegularExpression("^[0-9]{16}$", ErrorMessage = "incorrect format")]		
 		public string CardNumber { get; set; }
 
 		[Required]
@@ -19,7 +19,7 @@ namespace SimpleProcessing.Models.Cards
 		public string CardholderName { get; set; }
 
 		[Required]
-		[RegularExpression("^[0-9]{3}$")]
+		[RegularExpression("^[0-9]{3}$", ErrorMessage = "incorrect format")]
 		public string CVVCode { get; set; }
 
 		[Required]
