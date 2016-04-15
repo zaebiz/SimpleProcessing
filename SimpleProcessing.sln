@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProcessing.Core", "Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProcessing.Models", "SimpleProcessing.Models\SimpleProcessing.Models.csproj", "{4D46067A-F805-44AB-B90B-C41409C71347}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProcessing.TestClient", "SimpleProcessing.TestClient\SimpleProcessing.TestClient.csproj", "{0763D764-8BF0-411C-9629-6AE103D60FC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4D46067A-F805-44AB-B90B-C41409C71347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D46067A-F805-44AB-B90B-C41409C71347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D46067A-F805-44AB-B90B-C41409C71347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0763D764-8BF0-411C-9629-6AE103D60FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0763D764-8BF0-411C-9629-6AE103D60FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0763D764-8BF0-411C-9629-6AE103D60FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0763D764-8BF0-411C-9629-6AE103D60FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
