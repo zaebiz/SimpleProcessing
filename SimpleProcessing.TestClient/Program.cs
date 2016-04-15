@@ -14,13 +14,12 @@ namespace SimpleProcessing.TestClient
 	{
 		static void Main(string[] args)
 		{
-			//var task = TestIncorrectRequestData();
-			//var task = TestSameOrderNumbers();
-			//var task = TestUnlimitedCardWithdrawal();
-			//var task = TestDebetCardWithdrawal();
-			var task = TestRefundForDebitCard();
+			TestIncorrectRequestData().Wait();
+			TestSameOrderNumbers().Wait();
+			TestUnlimitedCardWithdrawal().Wait();
+			TestDebetCardWithdrawal().Wait();
+			TestRefundForDebitCard().Wait();
 
-			task.Wait();
 			Console.ReadKey();
 		}
 
@@ -62,6 +61,7 @@ namespace SimpleProcessing.TestClient
 
 		static async Task TestRefundForDebitCard()
 		{
+			Console.WriteLine("");
 			Console.WriteLine("TEST DEBET CARD REFUND");
 			Console.WriteLine("###############################");
 
@@ -90,6 +90,7 @@ namespace SimpleProcessing.TestClient
 		// бесконечно можно снимать, лимита нет
 		static async Task TestUnlimitedCardWithdrawal()
 		{
+			Console.WriteLine("");
 			Console.WriteLine("TEST UNLIMITED CARD WITHDRAWAL ");
 			Console.WriteLine("###############################");
 
@@ -107,6 +108,7 @@ namespace SimpleProcessing.TestClient
 		// после первой транзакции (600р) вторая  и последующие с аналогичными суммами не проходят
 		static async Task TestDebetCardWithdrawal()
 		{
+			Console.WriteLine("");
 			Console.WriteLine("TEST DEBET CARD WITHDRAWAL ");
 			Console.WriteLine("###############################");
 
@@ -123,7 +125,8 @@ namespace SimpleProcessing.TestClient
 		// запросы с неверными данными по карте
 		static async Task TestIncorrectRequestData()
 		{
-			Console.WriteLine("TEST INCORRECT RESPONSE DATA");
+			Console.WriteLine("");
+			Console.WriteLine("TEST INCORRECT REQUEST DATA");
 			Console.WriteLine("###############################");
 
 			PayOrderDto incorrectRequest = CreateUnlimitedCardRequest();
@@ -142,6 +145,7 @@ namespace SimpleProcessing.TestClient
 		// запрещены платежи с одинаковыми айди
 		static async Task TestSameOrderNumbers()
 		{
+			Console.WriteLine("");
 			Console.WriteLine("TEST ORDER ID UNIQUE CONTROL");
 			Console.WriteLine("###############################");
 

@@ -96,7 +96,6 @@
     <Compile Include="ProcessingService\CardManager.cs" />
     <Compile Include="ProcessingService\ICardManager.cs" />
     <Compile Include="ProcessingService\IProcessingManager.cs" />
-    <Compile Include="ProcessingService\OrderManager.cs" />
     <Compile Include="ProcessingService\ProcessingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleProcessingConfig.cs" />
