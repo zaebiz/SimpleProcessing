@@ -56,7 +56,7 @@ namespace SimpleProcessing.Core.StorageService
 
 		public void UpdateOrderStatus(string orderId, OrderStatus status)
 		{
-			Contract.Requires<ArgumentException>(String.IsNullOrEmpty(orderId));
+			Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(orderId));
 
 			var order = _db[orderId];
 			order.OrderStatus = status;
@@ -66,7 +66,7 @@ namespace SimpleProcessing.Core.StorageService
 
 		public void RemoveOrder(string orderId)
 		{
-			Contract.Requires<ArgumentException>(String.IsNullOrEmpty(orderId));
+			Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(orderId));
 
 			_db.Remove(orderId);
 			NLog.LogManager.GetCurrentClassLogger().Info($"order #{orderId} refunded");

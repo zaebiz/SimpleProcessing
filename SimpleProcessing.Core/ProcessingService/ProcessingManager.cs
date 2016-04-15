@@ -31,15 +31,26 @@ namespace SimpleProcessing.Core.ProcessingService
 			var usedCard = _cardManager.GetCardByStandartInfo(order.CardInfo);
 			_cardManager.CardOperation(usedCard.CardId, order.AmountKop);
 
-			_orderStorage.AddOrder(new PayOrder()
+			try
 			{
-				OrderId = Guid.NewGuid().ToString(),
-				AmountKop = order.AmountKop,
-				ExternalOrderId = order.OrderId,
-				OrderDate = DateTime.Now,
-				CardId = usedCard.CardId,
-				OrderStatus = 0
-			});
+				_orderStorage.AddOrder(new PayOrder()
+				{
+					OrderId = Guid.NewGuid().ToString(),
+					AmountKop = order.AmountKop,
+					ExternalOrderId = order.OrderId,
+					OrderDate = DateTime.Now,
+					CardId = usedCard.CardId,
+					OrderStatus = OrderStatus.PROCESSING
+				});
+			}
+			catch (Exception ex)
+			{
+				// "транзакционность" создания платежа
+				// при ошибке создания плаьежа в БД, отменим предыдущую операцию с деньгами на карте				
+				_cardManager.CardOperation(usedCard.CardId, order.AmountKop, true);
+				throw ex;
+			}
+			
 		}
 
 		public async Task<OrderStatus> GetOrderStatus(string orderId)
@@ -51,8 +62,23 @@ namespace SimpleProcessing.Core.ProcessingService
 		public async Task Refund(string orderId)
 		{
 			var order = await GetOrder(orderId).ConfigureAwait(false);
-			_cardManager.CardOperation(order.CardId, order.AmountKop, true);
-			_orderStorage.UpdateOrderStatus(order.OrderId, OrderStatus.REFUNDED);
+			if (order.OrderStatus == OrderStatus.REFUNDED)
+				throw new SimpleProcessingException($"payment #{orderId} already refunded");
+
+			var amountToRefund = order.AmountKop;
+			_cardManager.CardOperation(order.CardId, amountToRefund, true);
+
+			// транзакция рефанда платежа, при ошибке отменяем предыдущую операцию с деньгами на карте
+			try
+			{
+				_orderStorage.UpdateOrderStatus(order.ExternalOrderId, OrderStatus.REFUNDED);
+			}
+			catch (Exception ex)
+			{
+				_cardManager.CardOperation(order.CardId, amountToRefund, false);
+				throw ex;
+			}
+			
 		}		
 
 		/// <summary>

@@ -48,6 +48,9 @@ namespace SimpleProcessing.Core.ProcessingService
 			Contract.Requires<ArgumentNullException>(!String.IsNullOrEmpty(cardId));
 			Contract.Requires<ArgumentException>(amount > 0);
 
+			if (isRefundOperation)
+				amount *= -1;
+
 			var card = _storage[cardId];
 			lock (_syncItem)
 			{
@@ -58,7 +61,7 @@ namespace SimpleProcessing.Core.ProcessingService
 					throw new SimpleProcessingException(msg);
 				}
 					
-				if (isRefundOperation) amount *= -1;
+				
 				card.MoneyAmountKop -= amount;
 				return card.CardId;
 			}
